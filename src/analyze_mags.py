@@ -17,7 +17,9 @@ PROJECT_NAME = 'rushhour'
 
 PROJECT_ROOT = '/'.join(_tmp_path[:_tmp_path.index(PROJECT_NAME)+1])
 PROBLEM_FOLDER = PROJECT_ROOT + '/psiturk-rushhour/static/json'
+FIGURE_FOLDER = PROJECT_ROOT + '/results/figures/'
 MOVES_FILE = PROJECT_ROOT + '/results/all_stages/moves.csv'
+RAW_FILE = PROJECT_ROOT + '/results/all_stages/trialdata.csv'
 MOVE_FILE_WITH_MAG = PROJECT_ROOT + '/results/all_stages/moves_with_mag.csv'
 MOVE_FILE_FIELDS = ['subject', 'instance', 'optimal_length',
                     'move_number', 'move', 'pre_actions', 'meta_move',
@@ -38,7 +40,7 @@ def is_initial_state(rec):
     return int(rec.move_number) == 0
 
 
-def mag_stats(rec, state, piece, location, show_mag=False):
+def mag_stats(rec, state, piece, location, show_mag=True):
     """
     Mag Statistics are added here
     :param rec:
@@ -65,7 +67,15 @@ def mag_stats(rec, state, piece, location, show_mag=False):
     number_of_leaves = number_of_nodes - (len(mag) - 1)# because of Dummy node
     stats['number_of_leaves'] = number_of_leaves
 
+
+
+
+
     return stats
+
+
+
+
 
 
 def analyze_mags(logging=False):

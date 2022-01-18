@@ -3,6 +3,7 @@ import os
 from ntpath import basename
 from sys import argv
 from test import magsize,magsize_admissible
+from os import listdir
 from collections import namedtuple,defaultdict
 from rushhour import instance_dict,do_move_from_fixed,opt_solution_instances, min_manhattan_distance_calc, rhstring, find_piece, draw
 from copy import deepcopy
