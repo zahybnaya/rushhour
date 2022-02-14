@@ -19,6 +19,7 @@ PROJECT_ROOT = '/'.join(_tmp_path[:_tmp_path.index(PROJECT_NAME)+1])
 PROBLEM_FOLDER = PROJECT_ROOT + '/psiturk-rushhour/static/json'
 FIGURE_FOLDER = PROJECT_ROOT + '/results/figures/'
 MOVES_FILE = PROJECT_ROOT + '/results/all_stages/moves.csv'
+MOVEDATA_FILE = PROJECT_ROOT + '/results/all_stages/movedata.csv'
 RAW_FILE = PROJECT_ROOT + '/results/all_stages/trialdata.csv'
 MOVE_FILE_WITH_MAG = PROJECT_ROOT + '/results/all_stages/moves_with_mag.csv'
 MOVE_FILE_FIELDS = ['subject', 'instance', 'optimal_length',
