@@ -52,12 +52,41 @@ def plot_time_line_data_per_worker(worker_recs):
     plt.savefig(FIGURE_FOLDER + 'timeline_' + str(worker_recs[0].worker)+'.pdf')
 
 
+
+def plot_times(by_worker, worker_id):
+    worker_recs = by_worker[worker_id]
+    order_by_t = sorted(worker_recs, key=lambda r: float(r.t))
+    times = [float(r.t) for r in order_by_t]
+    sns.scatterplot(range(len(order_by_t)), times)
+    plt.show()
+
+
+def filter_weird(recs):
+    with open(FIGURE_FOLDER +'Weird_subjects', 'r') as f:
+        bad_workers = [w.strip() for w in f.readlines()]
+    return [r for r in recs if r.worker not in bad_workers]
+
+def filter_weird_on_files(file_to_filter):
+    with open(FIGURE_FOLDER +'Weird_subjects', 'r') as f:
+        bad_workers = [w.strip() for w in f.readlines()]
+
+    with open(file_to_filter, 'r') as input:
+        with open(file_to_filter+'_filtered', 'wa') as output:
+            for l in input:
+               if not any(w in l for w in bad_workers):
+                   print(l)
+                   output.write(l)
+
+
+
+
 if __name__ == '__main__':
     """
     PsiturkRec=namedtuple('PsiturkRec','worker assignment ord t event piece move_nu move instance')
     """
-    recs = read_psiturk_data(RAW_FILE)
+    recs = filter_weird(read_psiturk_data(RAW_FILE))
     by_worker = defaultdict(list)
+
 
     print('splitting by worker.')
     for r in recs:
@@ -65,6 +94,10 @@ if __name__ == '__main__':
 
     for w in by_worker:
         print(str(w) + ' has ' + str(len(by_worker[w])) + ' records')
+
+    plot_times(by_worker, 'A3NMQ3019X6YE0')
+    duplicate_worker = by_worker['A3NMQ3019X6YE0']
+    by_worker['A3NMQ3019X6YE0'] = [r for r in duplicate_worker if r.t > 12000]
 
     for worker_records in by_worker.values():
         plot_time_line_data_per_worker(worker_records)
